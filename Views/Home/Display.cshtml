@@ -1,0 +1,229 @@
+﻿
+@{Layout = null;}
+<link href="~/Content/bootstrap.css" rel="stylesheet"/>
+<script src="~/Scripts/bootstrap.js"> </script>
+@model  TermProject_Ead.Models.UserShare
+<!-- styling -->
+
+<style type="text/css">
+	
+	#tfnewsearch{
+		float:left;
+	
+	}
+	.tftextinput2{
+		margin: 0;
+		padding: 5px 15px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		color:#666;
+		border:1px solid #0076a3; border-right:0px;
+		border-top-left-radius: 5px 5px;
+		border-bottom-left-radius: 5px 5px;
+	}
+
+    .c2 {
+        text-align:justify;
+       width: 420px; height: 100px;
+       direction:ltr;
+       
+    }   
+    
+      .id1 {
+    text-align:center
+        }  
+	.tfbutton2 {
+		margin: 0;
+		padding: 5px 7px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		font-weight:bold;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		color: #ffffff;
+		border: solid 1px #0076a3; border-right:0px;
+		background: #0095cd;
+		background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+		background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+		border-top-right-radius: 5px 5px;
+		border-bottom-right-radius: 5px 5px;
+	}
+	.tfbutton2:hover {
+		text-decoration: none;
+		background: #007ead;
+		background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+		background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+	}
+	/* Fixes submit button height problem in Firefox */
+	.tfbutton2::-moz-focus-inner {
+	  border: 0;
+	}
+	.tfclear{
+		clear:both;
+	}
+</style>
+
+
+ <nav class ="navbar navbar-default">
+        <div class="navbar-header">
+            &nbsp &nbsp &nbsp
+            @Html.Label("Sharing Ideas Networking ")  &nbsp &nbsp &nbsp </div>
+      
+              <div class="span6 offset3 text-center">
+     
+                  <div id="tfheader">
+
+                      @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                      {
+                     @Html.HiddenFor(m => m.User.Id)
+                     @Html.HiddenFor(m => m.User.first)
+                     @Html.HiddenFor(m => m.User.last)
+                     @Html.HiddenFor(m => m.User.email)
+                     @Html.HiddenFor(m => m.User.imageurl)
+                     @Html.HiddenFor(m => m.User.birthday_day)
+                     @Html.HiddenFor(m => m.User.birthday_month)  
+                     @Html.HiddenFor(m => m.User.birthday_year) 
+                     @Html.HiddenFor(m => m.User.sex)
+                 
+                     <input type="search" id="tfq2b" class="tftextinput2" name="q" size="71" maxlength="120" value="Search for people"/>
+                     
+                     <input type="submit" value=">" class="tfbutton2"/>
+                      }
+             &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp
+             &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+             &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp
+             &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp
+             &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp
+             &nbsp &nbsp &nbsp &nbsp &nbsp   &nbsp &nbsp
+             &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp
+             &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+             &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp
+             &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp
+                      
+                         @Html.ActionLink("Logout", "Index", "Home")
+		              
+                      </div>
+                      <div class="tfclear"></div>
+
+                 <!-- JAVASCRIPT to clear search text when the field is clicked -->
+                   <script type="text/javascript">
+
+                       $(function () {
+
+                           $("#tfq2b").click(function () {
+
+                               if ($("#tfq2b").val() == "Search for people") {
+
+                                   $("#tfq2b").val("");
+
+                               }
+
+
+                           });
+
+                       });
+
+
+                       </script>   
+             </div>  
+ </nav>
+<div class="row">
+    <div class="col-md-1" style="color:aqua"> </div>
+<div class="col-md-4">  
+   
+<table border="1">
+<thead>
+    <tr>
+        <th>@Model.User.first  @Model.User.last</th>
+
+        </tr>
+</thead>
+<tbody>
+    <tr>
+                <td><img src="/images/@Model.User.imageurl" width="100" height="100" /></td>
+       
+        </tr>                         
+</tbody>
+</table>
+@using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
+ new { enctype = "multipart/form-data", u = @Model.User.email }))
+{
+ @Html.HiddenFor(m => m.User.email) 
+  <br/>
+<input type="file" name="file" id="file" style="width: 100%;" /> <br />
+<input type="submit" value="Upload" class="submit" />       
+}
+ </div>
+      <div class="col-md-4"> 
+
+          <div> @Html.Label("Update Status ") </div>
+          <div>
+                         
+           </div>
+          <br/>
+          <div>
+
+           @Html.Label("Share Text/Photos ")
+
+          </div>
+
+          <div>
+                   
+              @using (Html.BeginForm("Sharefile", "Home", FormMethod.Post,
+
+                  new { enctype = "multipart/form-data" }))
+              {
+                  
+                     @Html.HiddenFor(m => m.User.first)
+                     @Html.HiddenFor(m => m.User.last)
+                     @Html.HiddenFor(m => m.User.imageurl)
+                     @Html.HiddenFor(m => m.User.password)
+                     @Html.HiddenFor(m => m.User.email)
+                     @Html.HiddenFor(m => m.User.sex)
+                     @Html.HiddenFor(m => m.User.Id)
+               
+                  <div>
+                     <textarea id="tfnewsearch" class="c2" name="textarea" placeholder=" Whats on your mind ?">   </textarea>
+  
+                   </div>
+                      <br/> <br/> <br/> <br/><br/>                 
+                  <div><input type="file" name="file" id="file1" style="width: 100%;" /> <br /> </div>
+
+                  <input type="submit" value="Share" class="submit" />       
+                      
+              }
+                 
+   </div>
+   
+          <div>
+              
+
+              @if (Model.Share != null)
+              {
+
+                  foreach (var item in Model.Share)
+                  {
+            
+            <div class="container">
+              
+             <br /><br /><h3>@item.text </h3><br />
+             <img src="/images2/@item.image" style="width:25%;height:25%" /> <br />
+                <a href="/Home/Delete/@item.Id">Delete</a>
+                  </div>
+                  }
+
+              }
+
+    </div>
+
+
+
+          </div>
+     
+
+      <div class="col-md-3">   </div>
+
+
+    </div>
